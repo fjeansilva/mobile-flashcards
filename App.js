@@ -1,13 +1,42 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+} from 'react-native';
+import { TabNavigator } from 'react-navigation';
+import { Entypo } from '@expo/vector-icons';
+import { yellow, black } from 'ansi-colors';
+import api from './utils/api';
+import DeckList from './components/DeckList';
+
+const decks = api.getDecks();
+
+const PageDecks = () => (
+  <DeckList data={decks} />
+);
+
+const NewDeck = () => (
+  <View>
+    <Text>NewDeck!</Text>
+  </View>
+);
+
+const Tabs = TabNavigator({
+  Decks: {
+    screen: PageDecks,
+  },
+  NewDeck: {
+    screen: NewDeck,
+  },
+});
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        {/* <DeckList data={decks} /> */}
+        <Tabs />
       </View>
     );
   }
@@ -17,7 +46,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 15,
+    borderWidth: 2,
+    borderColor: 'yellow',
   },
 });
