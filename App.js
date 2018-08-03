@@ -1,53 +1,35 @@
-import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
-import { TabNavigator } from 'react-navigation';
-import { Entypo } from '@expo/vector-icons';
-import { yellow, black } from 'ansi-colors';
-import api from './utils/api';
-import DeckList from './components/DeckList';
+import React, {Component} from 'react';
+import thunk from 'redux-thunk';
+import {getDecks} from './actions'
+import {createStore, applyMiddleware} from 'redux'
+import {Provider, connect} from 'react-redux'
+import reducer from './reducers'
+import RootContainer from './components/RootContainer';
+import { setLocalNotification } from './utils/helpers'
 
-const decks = api.getDecks();
 
-const PageDecks = () => (
-  <DeckList data={decks} />
-);
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const store = createStoreWithMiddleware(reducer);
 
-const NewDeck = () => (
-  <View>
-    <Text>NewDeck!</Text>
-  </View>
-);
+const ConnectedRoot = connect(
+    null,
+    (dispatch) => ({
+        getDecks: () => dispatch(getDecks())
+    })
+)(RootContainer);
 
-const Tabs = TabNavigator({
-  Decks: {
-    screen: PageDecks,
-  },
-  NewDeck: {
-    screen: NewDeck,
-  },
-});
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        {/* <DeckList data={decks} /> */}
-        <Tabs />
-      </View>
-    );
-  }
+export default class App extends Component {
+
+    componentDidMount() {
+        setLocalNotification()
+    }
+
+    render() {
+        return (
+            <Provider store={store}>
+                <ConnectedRoot />
+            </Provider>
+        );
+    }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 15,
-    borderWidth: 2,
-    borderColor: 'yellow',
-  },
-});

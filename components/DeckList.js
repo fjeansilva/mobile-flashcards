@@ -1,30 +1,100 @@
-import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-} from 'react-native';
-import DeckListItem from './DeckListItem';
+// import React from 'react';
+// import {
+//   StyleSheet,
+//   Text,
+//   View,
+//   FlatList,
+// } from 'react-native';
+// import DeckListItem from './DeckListItem';
 
-const handleItem = ({ item }) => <DeckListItem key={item.key} {...item} />;
+// const handleItem = ({ item }) => <DeckListItem key={item.key} {...item} />;
 
-const DeckList = ({ data }) => (
-  <FlatList
-    data={data}
-    renderItem={handleItem}
-    style={styles.list}
-  />
-);
+// const DeckList = ({ data }) => (
+//   <FlatList
+//     data={data}
+//     renderItem={handleItem}
+//     style={styles.list}
+//   />
+// );
+
+// const styles = StyleSheet.create({
+//   list: {
+//     flex: 1,
+//     borderWidth: 2,
+//     borderColor: 'red',
+//     paddingLeft: 10,
+//     paddingRight: 10,
+//   }
+// });
+
+// export default DeckList;
+
+
+import React, {Component} from 'react'
+import {View, Text, TouchableOpacity, FlatList, StyleSheet} from 'react-native'
+import {Constants} from 'expo'
+import {getDecks} from '../utils/api'
+import {connect} from 'react-redux'
+
+class DeckList extends Component {
+
+    state = {
+        decks: []
+    }
+
+    static navigationOptions = {
+        title: 'Decks'
+    };
+
+    renderItem = ({item}) => {
+        const {navigate} = this.props.navigation
+
+        return (
+            <View style={{flex: 1}}>
+                <TouchableOpacity onPress={() =>
+                    navigate('DeckDetail', {item})
+                }>
+                    <View key={item.title} style={styles.listContainer} >
+                        <Text style={styles.listItem}>{item.title} </Text>
+                        <Text style={[styles.listItem, {fontSize:12}]}>Questions {item.questions.length}</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+        )
+    };
+
+
+    render() {
+        return (
+            <FlatList
+                data={this.props.decks}
+                renderItem={this.renderItem}
+                keyExtractor={item => item.title}
+            />
+        )
+    }
+}
 
 const styles = StyleSheet.create({
-  list: {
-    flex: 1,
-    borderWidth: 2,
-    borderColor: 'red',
-    paddingLeft: 10,
-    paddingRight: 10,
-  }
-});
+    listItem: {
+        textAlign: 'center',
+        fontSize: 18,
+        padding: 2
+    },
+    listContainer: {
+        margin:4,
+        borderBottomColor: 'black'
+    }
+})
 
-export default DeckList;
+function mapStateToProps(state) {
+
+    let decks = Object.keys(state).map((key) => state[key])
+
+    return {
+        decks: decks
+    }
+
+}
+
+export default connect(mapStateToProps)(DeckList);
