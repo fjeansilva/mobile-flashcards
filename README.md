@@ -1,31 +1,44 @@
+#Projeto Mobile-Flashcards
+Esse app permite que o usuário cadastre listas de cards para estudo. É possível cadastrar 'baralhos' e popula-los com diversos cards de perguntas e respostas. O usuário pode rodar uma lista respondendo as perguntas e no final ver sua pontuação.
+
+Esse projeto foi desenvolvido para iOS, e testado no iPhone 6 PLUS.
+
+##Como rodar o projeto
+* Clone o projeto.
+* Na pasta raiz execute '#yarn install'
+* Em seguida '#yarn start'
+
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
 
 ## Table of Contents
 
-* [Updating to New Releases](#updating-to-new-releases)
-* [Available Scripts](#available-scripts)
-  * [npm start](#npm-start)
-  * [npm test](#npm-test)
-  * [npm run ios](#npm-run-ios)
-  * [npm run android](#npm-run-android)
-  * [npm run eject](#npm-run-eject)
-* [Writing and Running Tests](#writing-and-running-tests)
-* [Environment Variables](#environment-variables)
-  * [Configuring Packager IP Address](#configuring-packager-ip-address)
-* [Adding Flow](#adding-flow)
-* [Customizing App Display Name and Icon](#customizing-app-display-name-and-icon)
-* [Sharing and Deployment](#sharing-and-deployment)
-  * [Publishing to Expo's React Native Community](#publishing-to-expos-react-native-community)
-  * [Building an Expo "standalone" app](#building-an-expo-standalone-app)
-  * [Ejecting from Create React Native App](#ejecting-from-create-react-native-app)
-    * [Build Dependencies (Xcode & Android Studio)](#build-dependencies-xcode-android-studio)
-    * [Should I Use ExpoKit?](#should-i-use-expokit)
-* [Troubleshooting](#troubleshooting)
-  * [Networking](#networking)
-  * [iOS Simulator won't open](#ios-simulator-wont-open)
-  * [QR Code does not scan](#qr-code-does-not-scan)
+- [Table of Contents](#table-of-contents)
+- [Updating to New Releases](#updating-to-new-releases)
+- [Available Scripts](#available-scripts)
+  - [`npm start`](#npm-start)
+    - [`npm test`](#npm-test)
+    - [`npm run ios`](#npm-run-ios)
+    - [`npm run android`](#npm-run-android)
+      - [Using Android Studio's `adb`](#using-android-studios-adb)
+      - [Using Genymotion's `adb`](#using-genymotions-adb)
+    - [`npm run eject`](#npm-run-eject)
+- [Customizing App Display Name and Icon](#customizing-app-display-name-and-icon)
+- [Writing and Running Tests](#writing-and-running-tests)
+- [Environment Variables](#environment-variables)
+  - [Configuring Packager IP Address](#configuring-packager-ip-address)
+- [Adding Flow](#adding-flow)
+- [Sharing and Deployment](#sharing-and-deployment)
+  - [Publishing to Expo's React Native Community](#publishing-to-expos-react-native-community)
+  - [Building an Expo "standalone" app](#building-an-expo-%22standalone%22-app)
+  - [Ejecting from Create React Native App](#ejecting-from-create-react-native-app)
+    - [Should I Use ExpoKit?](#should-i-use-expokit)
+- [Troubleshooting](#troubleshooting)
+  - [Networking](#networking)
+  - [iOS Simulator won't open](#ios-simulator-wont-open)
+  - [QR Code does not scan](#qr-code-does-not-scan)
 
 ## Updating to New Releases
 

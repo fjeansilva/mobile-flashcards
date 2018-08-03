@@ -34,10 +34,6 @@ class Quiz extends Component {
             correctAnswers: 0,
             quizComplete: false
         })
-
-        clearLocalNotification()
-            .then(setLocalNotification)
-
     }
 
     correct = () => {
@@ -64,6 +60,12 @@ class Quiz extends Component {
     }
 
     quizSummary = () => {
+        clearLocalNotification()
+            .then(setLocalNotification)
+
+        const { state } = this.props.navigation;
+
+        const item = this.props.decks[state.params.title];
         return (
             <View style={{flex: 1, display: 'flex'}}>
                 <View style={{flex: 1}}>
@@ -80,7 +82,14 @@ class Quiz extends Component {
                         textColor = 'white'
                     />
                 </View>
-
+                <View style={{flex: 1}}>
+                    <TextButton
+                        onPress={ () => this.props.navigation.navigate('DeckDetail', {item})}
+                        children="Back to Deck"
+                        style={styles.quizBtn}
+                        textColor = 'white'
+                    />
+                </View>
             </View>
         )
     }

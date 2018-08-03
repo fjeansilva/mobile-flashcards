@@ -3,7 +3,6 @@ import {View, Text, StyleSheet, TouchableOpacity, Platform, Alert} from 'react-n
 import {gray, blue, white} from '../utils/colors'
 import {connect} from 'react-redux'
 
-// TODO: Use TextButton
 function AddCardBtn({onPress}) {
     return (
         <TouchableOpacity
