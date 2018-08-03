@@ -7,21 +7,18 @@ import DeckDetail from "./DeckDetail";
 import DeckList from "./DeckList";
 import CardForm from "./CardForm";
 import DeckForm from "./DeckForm";
-import {FontAwesome, Ionicons} from '@expo/vector-icons'
+import {FontAwesome, Ionicons} from '@expo/vector-icons';
+import { Constants } from "expo";
 
-const Stack = StackNavigator({
-    DeckList: {screen: DeckList},
-    DeckDetail: {screen: DeckDetail},
-    CardForm: {screen: CardForm},
-    Quiz: {screen: Quiz}
-})
 
 const Tabs = TabNavigator({
     Decks: {
-        screen: Stack,
+        screen: DeckList,
         navigationOptions: {
-            tabBarLabel: 'Home',
-            tabBarIcon: ({tintColor}) => <Ionicons name='ios-home-outline' size={30} color={tintColor}/>
+            tabBarLabel: "Home",
+            tabBarIcon: ({ tintColor }) => (
+            <Ionicons name="ios-home-outline" size={30} color={tintColor} />
+            )
         }
     },
     DeckForm: {
@@ -51,16 +48,35 @@ const Tabs = TabNavigator({
     }
 });
 
+const Stack = StackNavigator({
+    Home: {
+      screen: Tabs
+    },
+    DeckDetail: { screen: DeckDetail },
+    CardForm: { screen: CardForm },
+    Quiz: { screen: Quiz }
+});
+
+
+
 class RootContainer extends Component {
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.getDecks()
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <Tabs/>
+                <View style={{ height: Constants.statusBarHeight }}>
+                    <StatusBar
+                        translucent
+                        backgroundColor="#6c0ce2"
+                        color="#fff"
+                        barStyle="light-content"
+                    />
+                </View>
+                <Stack />
             </View>
         )
     }
